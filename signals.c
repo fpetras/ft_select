@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 09:33:22 by fpetras           #+#    #+#             */
-/*   Updated: 2018/02/23 12:17:03 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/02/24 15:18:49 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void		ft_quit(void)
 {
 	tputs(tgetstr("ve", NULL), 1, ft_putc);
 	tcsetattr(0, TCSANOW, &g_sel.old_config);
+	ft_free_tab(g_sel.args);
+	free(g_sel.selected);
 	exit(0);
 }
 
@@ -28,7 +30,7 @@ void		ft_segfault(void)
 /*
 ** TIOCSTI - Faking input
 ** Insert the given byte in the input queue.
-** (in this case, ^Z)
+** (Could've also inserted '' or 26 instead of c_cc[VSUSP])
 */
 
 void		ft_suspend(void)

@@ -6,7 +6,7 @@
 #    By: fpetras <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/14 07:55:11 by fpetras           #+#    #+#              #
-#    Updated: 2018/02/23 11:54:05 by fpetras          ###   ########.fr        #
+#    Updated: 2018/02/24 14:27:39 by fpetras          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME = ft_select
 
 SRC = main.c \
 	  display.c \
+	  display2.c \
 	  keypresses.c \
+	  color.c \
 	  utilities.c \
 	  signals.c \
 	  ft_tablen.c \

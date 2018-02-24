@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 08:03:33 by fpetras           #+#    #+#             */
-/*   Updated: 2018/02/23 12:16:30 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/02/24 14:27:21 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define DOWN 184
 # define RIGHT 185
 # define LEFT 186
+# define F2 187
 
 typedef struct		s_select
 {
@@ -46,9 +47,12 @@ typedef struct		s_select
 	char			**args;
 	int				*selected;
 	int				cursor;
+	int				color;
+	int				fd;
 }					t_select;
 
 void				ft_display(void);
+void				ft_display_multi_column(void);
 void				ft_display_selection(void);
 
 int					ft_enter(char *buf);
@@ -56,6 +60,9 @@ int					ft_escape(char *buf);
 void				ft_spacebar(char *buf);
 void				ft_delete_backspace(char *buf);
 void				ft_arrows(char *buf);
+
+void				ft_easteregg(char *buf);
+void				ft_color(int index);
 
 int					ft_key(char *buf);
 int					ft_putc(int c);

@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 10:02:21 by fpetras           #+#    #+#             */
-/*   Updated: 2018/02/23 12:03:43 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/02/24 13:15:38 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int			ft_key(char *buf)
 
 int			ft_putc(int c)
 {
-	return (write(1, &c, 1));
+	return (write(g_sel.fd, &c, 1));
 }
 
 void		ft_signal_func(int sig)

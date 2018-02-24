@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 10:24:59 by fpetras           #+#    #+#             */
-/*   Updated: 2018/02/23 12:18:12 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/02/24 14:39:01 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@
 ** "ve" - to make the cursor visible again
 ** "us" - to turn on 'underline mode'
 ** "mr" - to enter 'reverse video mode'
-** "vb" - to cause the screen to flash (i.e. 'party mode')
+** "vb" - to cause the screen to flash
 */
 
-static void			ft_select(void)
+static void	ft_select(void)
 {
 	char buf[4];
 
@@ -31,11 +31,10 @@ static void			ft_select(void)
 	{
 		tputs(tgetstr("cl", NULL), 1, ft_putc);
 		ft_display();
-		buf[0] = '\0';
-		buf[1] = '\0';
-		buf[2] = '\0';
+		ft_bzero(buf, 3);
 		read(0, buf, 3);
 		buf[3] = '\0';
+		ft_easteregg(buf);
 		ft_arrows(buf);
 		ft_spacebar(buf);
 		ft_delete_backspace(buf);
@@ -51,7 +50,7 @@ static void			ft_select(void)
 	}
 }
 
-static char			**ft_copy_args(int ac, char **av)
+static char	**ft_copy_args(int ac, char **av)
 {
 	int		i;
 	char	**args;
@@ -67,7 +66,7 @@ static char			**ft_copy_args(int ac, char **av)
 	return (args);
 }
 
-static void			ft_init_struct(int ac, char **av)
+static void	ft_init_struct(int ac, char **av)
 {
 	int i;
 
@@ -77,9 +76,11 @@ static void			ft_init_struct(int ac, char **av)
 	while (++i < ac - 1)
 		g_sel.selected[i] = UNSELECTED;
 	g_sel.cursor = 0;
+	g_sel.color = 0;
+	g_sel.fd = open(ttyname(0), O_WRONLY | O_NOCTTY);
 }
 
-static int			ft_error(int ac, char **env)
+static int	ft_error(int ac, char **env)
 {
 	if (ac == 1)
 	{
@@ -99,7 +100,7 @@ static int			ft_error(int ac, char **env)
 	return (0);
 }
 
-int					main(int ac, char **av, char **env)
+int			main(int ac, char **av, char **env)
 {
 	if (ft_error(ac, env) == -1)
 		return (-1);
@@ -114,12 +115,12 @@ int					main(int ac, char **av, char **env)
 	tcgetattr(0, &g_sel.new_config);
 	g_sel.new_config.c_lflag &= ~(ECHO);
 	g_sel.new_config.c_lflag &= ~(ICANON);
-//	g_sel.new_config.c_cc[VMIN] = 1;
-//	g_sel.new_config.c_cc[VTIME] = 0;
+	g_sel.new_config.c_cc[VMIN] = 1;
+	g_sel.new_config.c_cc[VTIME] = 0;
 	tcsetattr(0, TCSADRAIN, &g_sel.new_config);
 	tputs(tgetstr("cl", NULL), 1, ft_putc);
 	tputs(tgetstr("vi", NULL), 1, ft_putc);
-//	ft_signal_func(SIGWINCH);
+	ft_signal_func(SIGWINCH);
 	ft_select();
 	tputs(tgetstr("ve", NULL), 1, ft_putc);
 	tcsetattr(0, TCSADRAIN, &g_sel.old_config);
