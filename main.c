@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 10:24:59 by fpetras           #+#    #+#             */
-/*   Updated: 2018/02/24 14:39:01 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/02/27 11:54:49 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ static char	**ft_copy_args(int ac, char **av)
 	char	**args;
 
 	i = 1;
-	args = (char**)malloc(sizeof(char*) * ac);
+	if (!(args = (char**)malloc(sizeof(char*) * ac)))
+		return (NULL);
 	while (av[i])
 	{
 		args[i - 1] = ft_strdup(av[i]);
@@ -66,25 +67,35 @@ static char	**ft_copy_args(int ac, char **av)
 	return (args);
 }
 
-static void	ft_init_struct(int ac, char **av)
+static int	ft_init_struct(int ac, char **av)
 {
-	int i;
+	int		i;
+	char	*name;
 
 	i = -1;
-	g_sel.args = ft_copy_args(ac, av);
-	g_sel.selected = (int*)malloc(sizeof(int) * (ac - 1));
+	if (!(g_sel.args = ft_copy_args(ac, av)))
+		return (-1);
+	if (!(g_sel.selected = (int*)malloc(sizeof(int) * (ac - 1))))
+	{
+		ft_free_tab(g_sel.args);
+		return (-1);
+	}
 	while (++i < ac - 1)
 		g_sel.selected[i] = UNSELECTED;
 	g_sel.cursor = 0;
 	g_sel.color = 0;
-	g_sel.fd = open(ttyname(0), O_WRONLY | O_NOCTTY);
+	if ((name = ttyname(0)))
+		g_sel.fd = open(name, O_WRONLY | O_NOCTTY);
+	else
+		g_sel.fd = 0;
+	return (0);
 }
 
-static int	ft_error(int ac, char **env)
+static int	ft_error(int ac, char **av, char **env)
 {
 	if (ac == 1)
 	{
-		ft_dprintf(2, "usage: ./ft_select arg1 ...\n");
+		ft_dprintf(2, "usage: %s arg1 ...\n", av[0]);
 		return (-1);
 	}
 	else if (!env[0] || !getenv("TERM") || !ft_strlen(getenv("TERM")))
@@ -102,28 +113,18 @@ static int	ft_error(int ac, char **env)
 
 int			main(int ac, char **av, char **env)
 {
-	if (ft_error(ac, env) == -1)
+	if (ft_error(ac, av, env) == -1)
 		return (-1);
-	ft_init_struct(ac, av);
-	signal(SIGINT, ft_signal_func);
-	signal(SIGQUIT, ft_signal_func);
-	signal(SIGSEGV, ft_signal_func);
-	signal(SIGTSTP, ft_signal_func);
-	signal(SIGCONT, ft_signal_func);
-	signal(SIGWINCH, ft_signal_func);
-	tcgetattr(0, &g_sel.old_config);
-	tcgetattr(0, &g_sel.new_config);
-	g_sel.new_config.c_lflag &= ~(ECHO);
-	g_sel.new_config.c_lflag &= ~(ICANON);
-	g_sel.new_config.c_cc[VMIN] = 1;
-	g_sel.new_config.c_cc[VTIME] = 0;
-	tcsetattr(0, TCSADRAIN, &g_sel.new_config);
+	if (ft_init_struct(ac, av) == -1)
+		return (-1);
+	ft_signals();
+	ft_set_terminal();
 	tputs(tgetstr("cl", NULL), 1, ft_putc);
 	tputs(tgetstr("vi", NULL), 1, ft_putc);
 	ft_signal_func(SIGWINCH);
 	ft_select();
 	tputs(tgetstr("ve", NULL), 1, ft_putc);
-	tcsetattr(0, TCSADRAIN, &g_sel.old_config);
+	ft_restore_terminal();
 	ft_free_tab(g_sel.args);
 	free(g_sel.selected);
 	return (0);

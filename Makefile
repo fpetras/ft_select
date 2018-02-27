@@ -6,21 +6,24 @@
 #    By: fpetras <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/14 07:55:11 by fpetras           #+#    #+#              #
-#    Updated: 2018/02/24 14:27:39 by fpetras          ###   ########.fr        #
+#    Updated: 2018/02/27 08:23:30 by fpetras          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_select
 
 SRC = main.c \
+	  terminal_modes.c \
 	  display.c \
 	  display2.c \
 	  keypresses.c \
 	  color.c \
 	  utilities.c \
 	  signals.c \
+	  signals2.c \
 	  ft_tablen.c \
-	  ft_free_tab.c
+	  ft_free_tab.c \
+	  exit.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -43,3 +46,5 @@ fclean: clean
 	@rm -f $(NAME)
 
 re: fclean all
+
+.PHONY: all clean fclean re

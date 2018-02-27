@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 08:03:33 by fpetras           #+#    #+#             */
-/*   Updated: 2018/02/24 14:27:21 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/02/27 08:23:51 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ typedef struct		s_select
 	int				fd;
 }					t_select;
 
+t_select			g_sel;
+
+void				ft_set_terminal(void);
+void				ft_restore_terminal(void);
+
 void				ft_display(void);
 void				ft_display_multi_column(void);
 void				ft_display_selection(void);
@@ -68,6 +73,7 @@ int					ft_key(char *buf);
 int					ft_putc(int c);
 void				ft_signal_func(int sig);
 
+void				ft_signals(void);
 void				ft_quit(void);
 void				ft_segfault(void);
 void				ft_suspend(void);
@@ -76,7 +82,6 @@ void				ft_resize(void);
 
 size_t				ft_tablen(char **arr);
 void				ft_free_tab(char **arr);
-
-t_select			g_sel;
+void				ft_exit(int status);
 
 #endif
