@@ -6,7 +6,7 @@
 #    By: fpetras <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/02/14 07:55:11 by fpetras           #+#    #+#              #
-#    Updated: 2018/02/27 08:23:30 by fpetras          ###   ########.fr        #
+#    Updated: 2018/02/27 17:00:28 by fpetras          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,6 @@ SRC = main.c \
 	  color.c \
 	  utilities.c \
 	  signals.c \
-	  signals2.c \
 	  ft_tablen.c \
 	  ft_free_tab.c \
 	  exit.c

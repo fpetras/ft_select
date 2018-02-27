@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 08:03:33 by fpetras           #+#    #+#             */
-/*   Updated: 2018/02/27 08:23:51 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/02/27 16:58:31 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void				ft_signal_func(int sig);
 
 void				ft_signals(void);
 void				ft_quit(void);
-void				ft_segfault(void);
 void				ft_suspend(void);
 void				ft_continue(void);
 void				ft_resize(void);

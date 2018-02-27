@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/23 10:02:21 by fpetras           #+#    #+#             */
-/*   Updated: 2018/02/27 08:01:54 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/02/27 16:58:15 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,15 @@ int			ft_putc(int c)
 
 void		ft_signal_func(int sig)
 {
-	if (sig == SIGHUP)
-		ft_quit();
-	else if (sig == SIGINT)
+	if (sig == SIGINT)
 		ft_quit();
 	else if (sig == SIGQUIT)
 		ft_quit();
 	else if (sig == SIGSEGV)
-		ft_segfault();
+	{
+		ft_dprintf(2, "You found a segfault. Incredible!💥\n");
+		ft_quit();
+	}
 	else if (sig == SIGTERM)
 		ft_quit();
 	else if (sig == SIGTSTP)
@@ -50,4 +51,6 @@ void		ft_signal_func(int sig)
 		ft_continue();
 	else if (sig == SIGWINCH)
 		ft_resize();
+	else
+		ft_quit();
 }
