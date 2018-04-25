@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 10:24:59 by fpetras           #+#    #+#             */
-/*   Updated: 2018/02/27 11:54:49 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/04/25 10:10:10 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,5 +127,6 @@ int			main(int ac, char **av, char **env)
 	ft_restore_terminal();
 	ft_free_tab(g_sel.args);
 	free(g_sel.selected);
+	ft_printf(TEXT_RESET);
 	return (0);
 }

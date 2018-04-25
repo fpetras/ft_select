@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/14 08:03:33 by fpetras           #+#    #+#             */
-/*   Updated: 2018/02/27 16:58:31 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/04/25 10:09:44 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@
 # define RIGHT 185
 # define LEFT 186
 # define F2 187
+
+# define TEXT_RESET "\033[0;0m"
 
 typedef struct		s_select
 {
