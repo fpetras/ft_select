@@ -6,7 +6,7 @@
 /*   By: fpetras <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/24 13:52:52 by fpetras           #+#    #+#             */
-/*   Updated: 2018/02/24 14:33:37 by fpetras          ###   ########.fr       */
+/*   Updated: 2018/05/27 12:22:47 by fpetras          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void		ft_display_multi_column(void)
 		len++;
 		i++;
 	}
-	if (len > (g_sel.cols * g_sel.rows) * 0.75)
+	if (len > (g_sel.cols * g_sel.rows) * 0.87)
 		ft_dprintf(g_sel.fd, "Window\nsize\nis\ntoo\nsmall\n🖼");
 	else
 		ft_display_multi_column2();
