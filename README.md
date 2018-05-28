@@ -1,6 +1,6 @@
 # ft_select
 
-A terminal program with a simple user interface, built using the termcap library.\
+A terminal program with a simple user interface, built with the termcap library.\
 Allows picking of elements from a list and returning them to the shell.
 
 ## Installation:
@@ -22,18 +22,18 @@ The elements will automatically reposition themselves upon resizing of the windo
 
 Command substitution allows acting upon the list of choices:
 
-`` ls -l `./ft_select *` ``: Display information about the selected files\
-`` cat `./ft_select *` ``: Display the contents of the selected files\
-`` less `./ft_select *` ``: Browse through the contents of the selected files\
-`` rm -rf `./ft_select *` ``: Remove the selected files\
-`` for dir in `./ft_select *` ; git -C $dir pull``: Update the selected Git repositories\
+`` ls -l `./ft_select *` `` -- Display information about the selected files\
+`` cat `./ft_select *` `` -- Display the contents of the selected files\
+`` less `./ft_select *` `` -- Browse through the contents of the selected files\
+`` rm -rf `./ft_select *` `` -- Remove the selected files\
+`` for dir in `./ft_select *` ; git -C $dir pull`` -- Update the selected Git repositories\
 **...**
 
 ### In action:
 
 ![GIF1](http://g.recordit.co/o5MLualTzt.gif)
 
-## Code snippet:
+## Code snippets:
 
 Initialization of the terminal:
 
